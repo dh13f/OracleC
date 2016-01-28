@@ -19,23 +19,10 @@ void readInputFile(string inputFilePath);
 double deliveryTime();
 
 int main() {
-  std::ifstream input;
-  std::string order;
-
-  cout << "Enter the name of the input file:";
-  cin >> order;
-  input.open(order);
-  
-  while (!input) {
-    cout << "Incorrect file name. Please try again:";
-    cin >> order;    
-    input.open(order);
-  }
+  string order; // Name of input file
 
   readInputFile(order);
 
-  input.close();
-  
   return 0;
 }
 
@@ -43,7 +30,25 @@ int main() {
  * Method to read the input file
  */
 void readInputFile(string inputFilePath) {
-  ;
+  string name, addr, pNum;
+  string hold;
+  
+  getline(cin, name, ';');  
+  getline(cin, addr, ';');
+  getline(cin, pNum, ';');
+
+  while (cin) {
+    getline(cin, hold, ';');
+    cout << hold << '\n';
+  }
+  
+  cout << "Full name: " << name << '\n';
+  cout << "Delivery Address: " << addr << '\n';
+  cout << "Ordered wood: " << pNum << '\n';
+  cout << "Price per board foot (BF) purchased: " << '\n';
+  cout << "Price: " << '\n';
+  cout << "Est. delivery time: " << '\n';
+  cout << "Total price: " << '\n';  
 }
 
 /*
