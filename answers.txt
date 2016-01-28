@@ -1,0 +1,37 @@
+(a) How many commits have been done to the repository by the end of step 11?
+    
+    4 (from me) + 4 (from Esteban) = 8 total
+
+(b) When was the file .gitignore modified last?
+    
+    Monday, 24 August 2015 at 12:19
+
+(c) List the files, which were in the repository on 08/21/2015 at 11pm.
+    
+    There are no files that were in the repository on 08/21/2015 at 11pm.
+
+(d) How many times was each of the files inside the src folder modified?
+    
+    Each file in the src directory was editied once.
+
+(e) What is the difference between git log and git status?
+    
+    git log displays all of the commits that have been made in the local 
+    repository (and copied from a remote repository). Git status displays 
+    whether files in the local repository are unstaged or staged and ready to 
+    be committed.
+
+(f) What command would you use to see the commits where "main.java" was one 
+    of the committed files?
+
+    git log --follow main.java
+
+(g) What command would you use to see the commits whose commit message 
+    contains the word "transaction?"
+
+    git log -i --grep="transaction"
+
+(h) What command would you use to see the commits made by "Lauren" between 
+    01/05/2016 and 02/16/2016?
+
+    git log --author="Lauren" --after="2016-1-5" --before="2016-2-16"
