@@ -11,31 +11,37 @@
  */
 WoodItem::WoodItem() {
 	type = "";
-	baseDeliveryTime = 0.0;
+	unitsOrdered = 0.0;
 	price = 0.0;
+	deliveryTime = 0.0;
 }
 
 /*
  * Method to initialize a tic tac toe game
  * Initializes board and turn
  */
-WoodItem::WoodItem(std::string woodType, double deliveryTime, double itemPrice) {
-	type = woodType;
-	baseDeliveryTime = deliveryTime;
-	price = itemPrice;
-}
-/*
-std::ostream& operator<<(std::ostream& o, std::string & s){
-  o << s;
-  
-  return o;
-}
+WoodItem::WoodItem(std::string woodType, double units) {
+  type = woodType;
+  unitsOrdered = units;
 
-std::istream& operator>>(std::istream& i, std::string & s){
-  std::string hold;
   
-  getline(i, hold, ';');
-  
-  return i;
+  if (type == "Cherry") {
+    price = 5.95;
+    deliveryTime = 2.5;
+  } else if (type == "Curly Maple") {
+    price = 6.00;
+    deliveryTime = 1.5;
+  } else if (type == "Genuine Mahogany") {
+    price = 9.60;
+    deliveryTime = 3;
+  } else if (type == "Wenge") {
+    price = 22.35;
+    deliveryTime = 5;
+  } else if (type == "White Oak") {
+    price = 6.70;
+    deliveryTime = 2.3;
+  } else if (type == "Sawdust") {
+    price = 1.5;
+    deliveryTime = 1;
+  }
 }
-*/
