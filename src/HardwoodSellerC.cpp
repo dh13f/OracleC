@@ -19,99 +19,97 @@
 using namespace std;
 
 void readInputFile(string inputFilePath, WoodItem * woodL);
-double deliveryTime();
+void bfPrice(WoodItem & wi);
+double deliveryTime(WoodItem * wiL);
 
 int main() {
   string order; // Name of input file
-  //map<string, double> woodType;
   WoodItem woodL[6];
 
-  /* Wood type information
-  wood[0] = WoodItem("Cherry", 2.5, 5.95);
-  wood[1] = WoodItem("Curly Maple", 1.5, 6.00);
-  wood[2] = WoodItem("Genuine Mahogany", 3, 9.60);
-  wood[3] = WoodItem("Wenge", 5, 22.35);
-  wood[4] = WoodItem("White Oak", 2.3, 6.70);
-  wood[5] = WoodItem("Sawdust", 1, 1.5);
-  */
   readInputFile(order, woodL);
   
   return 0;
 }
 
+// *** Methods ***
+
 /*
- * Method to read the input file
+ * Method to read the input file and print results
  */
 void readInputFile(string inputFilePath, WoodItem * woodL) {
   string name, addr, pNum;
   string hold;
-  //  double eta = 0.0;
+  double eta = 0.0;
   string wood;
   string cost;
   int i = 0;
-  
+  double tPrice = 0;
   
   getline(cin, name, ';');
-  cout << name << '\n';
   getline(cin, addr, ';');
-  cout << addr << endl;
   getline(cin, hold, '\n');  
-  cout << pNum << endl;
 
   getline(cin, hold);
   istringstream str(hold);
     
   while(!str.eof()) {
-    cout << hold << endl;  
-
     getline(str, wood, ':');
-    cout << wood << endl;
-    
     getline(str, cost, ';');
-    cout << cost << endl;
-
-    woodL[i] = WoodItem(wood, stod(cost), 1);
+    
+    woodL[i] = WoodItem(wood, stod(cost));
     ++i;
   }
 
   for (int j = 0; j < i; ++j) {
-
+    bfPrice(woodL[j]);
+    tPrice += (woodL[j]).price;
   }
-  
-  //  eta = deliveryTime();
 
+  eta = deliveryTime(woodL);
+  
   cout << "Full name: " << name << '\n';
   cout << "Delivery Address: " << addr << '\n';
-  cout << "Board Feet purchased:\n";
+  cout << "Board type - Board feet (BF) purchased - BF price:\n";
   for (int j = 0; j < i; ++j) {
     cout << '\t' << (woodL[j]).type << " - ";
-    cout << (woodL[j]).baseDeliveryTime << " - ";
+    cout << (woodL[j]).unitsOrdered << " - ";
     cout << (woodL[j]).price << '\n';
   }
-  cout << "Est. delivery time: " /*<< eta*/ << '\n';
-  cout << "Total price: " << '\n';
+  cout << "Est. delivery time: " << eta << '\n';
+  cout << "Total price: " << tPrice << '\n';
 }
 
-
+/*
+  Method for determining bf cost depending on 
+  wood type and units ordered
+*/
+void bfPrice(WoodItem & wi) {
+  if (wi.unitsOrdered >= 1 && wi.unitsOrdered <= 100)
+    wi.price *= 1;
+  else if (wi.unitsOrdered >= 101 && wi.unitsOrdered <= 200)
+    wi.price *= 2;
+  else if (wi.unitsOrdered >= 201 && wi.unitsOrdered <= 300)
+    wi.price *= 3;
+  else if (wi.unitsOrdered >= 301 && wi.unitsOrdered <= 400)
+    wi.price *= 4;
+  else if (wi.unitsOrdered >= 401 && wi.unitsOrdered <= 500)
+    wi.price *= 5;
+  else if (wi.unitsOrdered >= 501)
+    wi.price *= 5.5;
+}
 
 /*
  * Method to compute the deliveryTime
  */
-double deliveryTime() {
+double deliveryTime(WoodItem * wiL) {
   double deliveryETA = 0.0;
 
+  
+  
   return deliveryETA;
 }
 
 /*
-  BF prices:
-  - Cherry - 5.95
-  - Curly Maple - 6.00
-  - Genuine Mahogany - 9.60
-  - Wenge - 22.35
-  - White Oak - 6.70
-  - Sawdust - 1.5
-
   Base Delivery time
   - Cherry - 2.5
   - Curly Maple - 1.5
