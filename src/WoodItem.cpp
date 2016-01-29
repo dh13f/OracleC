@@ -24,4 +24,18 @@ WoodItem::WoodItem(std::string woodType, double deliveryTime, double itemPrice) 
 	baseDeliveryTime = deliveryTime;
 	price = itemPrice;
 }
+/*
+std::ostream& operator<<(std::ostream& o, std::string & s){
+  o << s;
+  
+  return o;
+}
 
+std::istream& operator>>(std::istream& i, std::string & s){
+  std::string hold;
+  
+  getline(i, hold, ';');
+  
+  return i;
+}
+*/

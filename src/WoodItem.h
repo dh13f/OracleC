@@ -17,7 +17,10 @@
 #define WOODITEM_H_
 
 class WoodItem {
-
+  /* 
+  friend std::ostream& operator<<(std::ostream& o, std::string & s);
+  friend std::istream& operator>>(std::istream& i, std::string & s);
+  */
 public:
 
   std::string type;
@@ -27,7 +30,6 @@ public:
   // Member functions declaration
   WoodItem();
   WoodItem(std::string woodType, double deliveryTime, double itemPrice);
-  
 };
 
 #endif /* WOODITEM_H_ */
