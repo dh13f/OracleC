@@ -3,6 +3,8 @@
  *
  *  Created on: Aug 24, 2015
  *      Author: USER
+
+ Addtional code written by Dillon Hall-Rodriguez
  */
 
 #include "WoodItem.h"
@@ -17,14 +19,14 @@ WoodItem::WoodItem() {
 }
 
 /*
- * Method to initialize a tic tac toe game
- * Initializes board and turn
+ Method to initialize wood type.
+ Default price and deliveryTime will be
+ set depending on type
  */
 WoodItem::WoodItem(std::string woodType, double units) {
   type = woodType;
   unitsOrdered = units;
 
-  
   if (type == "Cherry") {
     price = 5.95;
     deliveryTime = 2.5;

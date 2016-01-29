@@ -20,12 +20,13 @@ using namespace std;
 
 void readInputFile(string inputFilePath, WoodItem * woodL);
 void bfPrice(WoodItem & wi);
-double deliveryTime(WoodItem * wiL);
+double deliveryTime(WoodItem * wiL, const int & totalBoards);
 
 int main() {
   string order; // Name of input file
   WoodItem woodL[6];
 
+  // User enters information from text file
   readInputFile(order, woodL);
   
   return 0;
@@ -44,14 +45,16 @@ void readInputFile(string inputFilePath, WoodItem * woodL) {
   string cost;
   int i = 0;
   double tPrice = 0;
-  
+
+  // Read basic customer information - not orders
   getline(cin, name, ';');
   getline(cin, addr, ';');
   getline(cin, hold, '\n');  
 
   getline(cin, hold);
   istringstream str(hold);
-    
+
+  // Read customer wood order
   while(!str.eof()) {
     getline(str, wood, ':');
     getline(str, cost, ';');
@@ -60,27 +63,29 @@ void readInputFile(string inputFilePath, WoodItem * woodL) {
     ++i;
   }
 
+  // Calculate total price
   for (int j = 0; j < i; ++j) {
     bfPrice(woodL[j]);
     tPrice += (woodL[j]).price;
   }
 
-  eta = deliveryTime(woodL);
-  
-  cout << "Full name: " << name << '\n';
+  eta = deliveryTime(woodL, i);
+
+  // Output receipt info
+  cout << "Name: " << name << '\n';
   cout << "Delivery Address: " << addr << '\n';
-  cout << "Board type - Board feet (BF) purchased - BF price:\n";
+  cout << "Board type - Board feet (BF) purchased - BF price ($):\n";
   for (int j = 0; j < i; ++j) {
     cout << '\t' << (woodL[j]).type << " - ";
-    cout << (woodL[j]).unitsOrdered << " - ";
+    cout << (woodL[j]).unitsOrdered << " - $";
     cout << (woodL[j]).price << '\n';
   }
-  cout << "Est. delivery time: " << eta << '\n';
-  cout << "Total price: " << tPrice << '\n';
+  cout << "Est. delivery time (hours): " << eta << '\n';
+  cout << "Total price ($): " << tPrice << '\n';
 }
 
 /*
-  Method for determining bf cost depending on 
+  Method for determining board feet (BF) cost depending on 
   wood type and units ordered
 */
 void bfPrice(WoodItem & wi) {
@@ -99,31 +104,14 @@ void bfPrice(WoodItem & wi) {
 }
 
 /*
- * Method to compute the deliveryTime
+ * Method to compute the deliveryTime for order
  */
-double deliveryTime(WoodItem * wiL) {
-  double deliveryETA = 0.0;
-
+double deliveryTime(WoodItem * wiL, const int & totalBoards) {
+  double deliveryETA = (wiL[0]).deliveryTime;
   
+  for (int j = 0; j < totalBoards; ++j)
+    if ((wiL[j]).deliveryTime > deliveryETA)
+      deliveryETA = (wiL[j]).deliveryTime;
   
   return deliveryETA;
 }
-
-/*
-  Base Delivery time
-  - Cherry - 2.5
-  - Curly Maple - 1.5
-  - Genuine Mahogany - 3
-  - Wenge - 5
-  - White Oak - 2.3
-  - Sawdust - 1
-
-  [1, 100] = 1 ∗ base delivery time 
-  [101, 200] = 2 ∗ base delivery time 
-  [201, 300] = 3 ∗ base delivery time 
-  [301, 400] = 4 ∗ base delivery time 
-  [401, 500] = 5 ∗ base delivery time 
-  [501, 1000] = 5.5 ∗ base delivery time
-
-  Use largest calculated delivery time
- */
